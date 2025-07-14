@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشغل القرآن الكريم</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- إضافة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <i class="fas fa-mosque header-icon"></i>
+                <h1>مشغل القرآن الكريم</h1>
+            </div>
+            <div class="theme-switcher">
+                <i class="fas fa-sun theme-icon"></i>
+                <input type="checkbox" id="theme-toggle">
+                <label for="theme-toggle" class="toggle-label">
+                    <span class="toggle-slider"></span>
+                </label>
+                <i class="fas fa-moon theme-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="filters-container">
+            <div class="filter-group">
+                <div class="filter-header">
+                    <i class="fas fa-filter"></i>
+                    <label for="riwaya-filter">اختر الرواية</label>
+                </div>
+                <div class="select-wrapper">
+                    <select id="riwaya-filter" disabled>
+                        <option value="all">كل الروايات</option>
+                    </select>
+                    <i class="fas fa-chevron-down select-arrow"></i>
+                </div>
+                <p id="riwaya-error" class="error-message"></p>
+            </div>
+        </div>
+
+        <div class="container-wrapper">
+            <div class="column">
+                <div class="section-header">
+                    <i class="fas fa-microphone"></i>
+                    <h2>القراء</h2>
+                    <span class="count-badge" id="reciters-count">0</span>
+                </div>
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="search" id="reciter-search" placeholder="ابحث عن قارئ...">
+                </div>
+                <div class="container" id="reciters-container">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>جاري تحميل القراء...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="section-header">
+                    <i class="fas fa-book-open"></i>
+                    <h2>السور</h2>
+                    <span class="count-badge" id="surahs-count">114</span>
+                </div>
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="search" id="surah-search" placeholder="ابحث عن سورة...">
+                </div>
+                <div class="container" id="surahs-container">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>جاري تحميل السور...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="player-container">
+            <div class="current-selection">
+                <div class="selection-item">
+                    <i class="fas fa-user-tie"></i>
+                    <p id="current-reciter-label">القارئ: لم يتم الاختيار</p>
+                </div>
+                <div class="selection-item">
+                    <i class="fas fa-scroll"></i>
+                    <p id="current-surah-label">السورة: لم يتم الاختيار</p>
+                </div>
+            </div>
+            
+            <div class="audio-section">
+                <audio id="audio-player" controls>
+                    متصفحك لا يدعم تشغيل الصوت
+                </audio>
+            </div>
+            
+            <div class="action-buttons">
+                <div class="button-group">
+                    <button id="save-bookmark-btn" class="btn btn-primary disabled" title="حفظ الموضع الحالي">
+                        <i class="fas fa-bookmark"></i>
+                        <span>حفظ الموضع</span>
+                    </button>
+                    <button id="load-bookmark-btn" class="btn btn-secondary disabled" title="العودة للموضع المحفوظ">
+                        <i class="fas fa-history"></i>
+                        <span>عودة للموضع</span>
+                    </button>
+                </div>
+                
+                <div class="button-group">
+                    <a id="download-surah-btn" class="btn btn-success disabled" href="#" download title="تحميل السورة الحالية">
+                        <i class="fas fa-download"></i>
+                        <span>تحميل السورة</span>
+                    </a>
+                    <a id="download-mushaf-btn" class="btn btn-info disabled" href="#" target="_blank" title="تحميل المصحف كاملاً">
+                        <i class="fas fa-file-archive"></i>
+                        <span>تحميل المصحف</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- قسم التواصل والإبلاغ عن الأخطاء -->
+        <div class="contact-section">
+            <div class="contact-header">
+                <i class="fas fa-bug"></i>
+                <h3>الإبلاغ عن خطأ أو اقتراح تحسين</h3>
+            </div>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label for="report-type">نوع التقرير:</label>
+                    <select id="report-type" required>
+                        <option value="">اختر نوع التقرير</option>
+                        <option value="bug">🐛 الإبلاغ عن خطأ</option>
+                        <option value="improvement">💡 اقتراح تحسين</option>
+                        <option value="feature">⭐ طلب ميزة جديدة</option>
+                        <option value="other">📝 أخرى</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="report-title">العنوان:</label>
+                    <input type="text" id="report-title" placeholder="اكتب عنوان مختصر للمشكلة أو الاقتراح" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="report-description">التفاصيل:</label>
+                    <textarea id="report-description" rows="4" placeholder="اشرح المشكلة أو الاقتراح بالتفصيل..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="user-email">إيميلك (اختياري):</label>
+                    <input type="email" id="user-email" placeholder="للرد عليك في حالة الحاجة">
+                </div>
+                
+                <button type="submit" class="btn btn-primary submit-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    <span>إرسال التقرير</span>
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <!-- النص المطلوب -->
+        <div class="dedication">
+            <i class="fas fa-heart text-red"></i>
+            <p><strong>هذا الموقع صدقة جارية عن أجدادي، وبرّ لوالديّ.</strong></p>
+            <i class="fas fa-heart text-red"></i>
+        </div>
+        
+        <div class="footer-content">
+            <p><i class="fas fa-mosque text-primary"></i> تم إنشاؤه بحب لخدمة كتاب الله</p>
+            <p class="footer-note">جميع التسجيلات من موقع mp3quran.net</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
